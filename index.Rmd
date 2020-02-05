@@ -1,0 +1,81 @@
+---
+title: "Pokémon sprite carousel"
+subtitle: "A {slickR} test"
+author: "Matt Dray, February 2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(htmlwidgets)
+library(slickR)
+source("R/create-pkmn-table.R")
+```
+
+```{r echo=FALSE}
+cP2 <- JS("function(slick,index) {
+          return '<a><img src= ' + dotObj[index] + '  width=100% height=100%></a>';
+          }")
+
+my_height <- 200
+my_width <- "75%"
+my_slides_show <- 3
+my_slides_scroll <- 3
+
+sprite_settings <- settings(
+    autoplay = TRUE,
+    arrows = FALSE,
+    slidesToShow = my_slides_show, 
+    slidesToScroll = my_slides_scroll
+  )
+
+front <- slickR(
+  obj = pkmn2$sprite_front_src,
+  objLinks = pkmn2$url,
+  height = my_height, width = my_width
+) + sprite_settings
+
+back <- slickR(
+  obj = pkmn2$sprite_back_src,
+  objLinks = pkmn2$url,
+  height = my_height, width = my_width
+) + sprite_settings
+
+names <- slickR(
+  paste(pkmn2$ndex_char, pkmn2$name),
+  slideType = 'p'
+) +
+  settings(
+    autoplay = TRUE,
+    arrows = TRUE,
+    slidesToShow = my_slides_show, 
+    slidesToScroll = my_slides_scroll,
+    dots = TRUE,
+    customPaging = cP2
+  )
+
+carousel <- front %synch% back %synch% names 
+
+s2 <- htmltools::tags$script(
+  sprintf("var dotObj = %s", jsonlite::toJSON(start_evo_sprite))
+)
+
+htmltools::browsable(htmltools::tagList(s2, carousel))
+```
+
+# How to
+
+* Click the arrow buttons or use your arrow keys to advance
+* Click a sprite to go to that Pokémon's page on [Bulbapedia](https://bulbapedia.bulbagarden.net/wiki/Main_Page)
+* Click a micro-sprite to jump to the evolutionary chain starting with that Pokémon
+
+# Data
+
+* © 1995–2020 [Nintendo](https://www.nintendo.com/)/[Creatures Inc](https://www.creatures.co.jp/)/[GAME FREAK inc](https://www.gamefreak.co.jp/)
+* Pokémon, Pokémon character names are trademarks of Nintendo.
+* Generation I Pokémon sprites from the Pokémon Black and White games collected via [veekun.com](https://veekun.com/dex/downloads)
+
+# Development
+
+* This is a test of the [{slickR}](https://metrumresearchgroup.github.io/slickR/) package for R
+* {slickR} provides an [htmlwidget](https://www.htmlwidgets.org/) interface to the [slick JavaScript library](http://kenwheeler.github.io/slick/)
+* Made by Matt Dray ([blog](https://www.rostrum.blog/), [GitHub](https://github.com/matt-dray), [Twitter](https://twitter.com/home))
