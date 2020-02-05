@@ -12,54 +12,66 @@ source("R/create-pkmn-table.R")
 ```
 
 ```{r echo=FALSE}
-cP2 <- JS("function(slick,index) {
-          return '<a><img src= ' + dotObj[index] + '  width=100% height=100%></a>';
-          }")
-
+# Set variables
 my_height <- 200
 my_width <- "75%"
 my_slides_show <- 3
 my_slides_scroll <- 3
 
-sprite_settings <- settings(
+# Set custom paging
+my_cp <- JS("function(slick,index) {
+          return '<a><img src= ' + dotObj[index] + '  width=100% height=100%></a>';
+          }")
+
+# Set common sprite settings
+my_sprite_settings <- settings(
     autoplay = TRUE,
     arrows = FALSE,
     slidesToShow = my_slides_show, 
     slidesToScroll = my_slides_scroll
   )
 
-front <- slickR(
+# Carousel with front-facing sprites
+front_carousel <- slickR(
   obj = pkmn2$sprite_front_src,
   objLinks = pkmn2$url,
   height = my_height, width = my_width
-) + sprite_settings
+) + my_sprite_settings
 
-back <- slickR(
+# Carousel with back-facing sprites
+back_carousel <- slickR(
   obj = pkmn2$sprite_back_src,
   objLinks = pkmn2$url,
   height = my_height, width = my_width
-) + sprite_settings
+) + my_sprite_settings
 
-names <- slickR(
+# Carousel with National Dex numbers and names
+names_carousel <- slickR(
   paste(pkmn2$ndex_char, pkmn2$name),
   slideType = 'p'
-) +
+) + 
   settings(
-    autoplay = TRUE,
-    arrows = TRUE,
+    autoplay = TRUE, arrows = TRUE,
     slidesToShow = my_slides_show, 
     slidesToScroll = my_slides_scroll,
-    dots = TRUE,
-    customPaging = cP2
+    dots = TRUE, customPaging = my_cp
   )
 
-carousel <- front %synch% back %synch% names 
+# Synchronise the carousels
+carousel <-
+  front_carousel %synch%
+  back_carousel %synch%
+  names_carousel 
 
-s2 <- htmltools::tags$script(
+# Dots are sprites
+my_sprite_dots <- htmltools::tags$script(
   sprintf("var dotObj = %s", jsonlite::toJSON(start_evo_sprite))
 )
 
-htmltools::browsable(htmltools::tagList(s2, carousel))
+# Apply sprite dots
+htmltools::browsable(
+  htmltools::tagList(my_sprite_dots, carousel)
+)
 ```
 
 # How to
@@ -76,6 +88,6 @@ htmltools::browsable(htmltools::tagList(s2, carousel))
 
 # Development
 
-* This is a test of the [{slickR}](https://metrumresearchgroup.github.io/slickR/){target='_blank'} package for R
-* {slickR} provides an [htmlwidget](https://www.htmlwidgets.org/){target='_blank'} interface to the [slick JavaScript library](http://kenwheeler.github.io/slick/){target='_blank'}
-* Made by Matt Dray ([blog](https://www.rostrum.blog/){target='_blank'}, [GitHub](https://github.com/matt-dray){target='_blank'}, [Twitter](https://twitter.com/home){target='_blank'})
+* This is a test of the [{slickR}](https://metrumresearchgroup.github.io/slickR/){target='_blank'} package for R by [Jonathan Sidi](https://yonicd.netlify.com/){target='_blank'}
+* {slickR} provides an [htmlwidget](https://www.htmlwidgets.org/){target='_blank'} interface to the [slick JavaScript library](http://kenwheeler.github.io/slick/){target='_blank'} by [Ken Wheeler](http://kenwheeler.github.io/)
+* This demo made by Matt Dray ([blog](https://www.rostrum.blog/){target='_blank'}, [GitHub](https://github.com/matt-dray){target='_blank'}, [Twitter](https://twitter.com/home){target='_blank'})

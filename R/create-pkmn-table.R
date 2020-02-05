@@ -60,8 +60,8 @@ pkmn <- tibble(
 ) %>% 
   mutate(
     url = paste0("https://bulbapedia.bulbagarden.net/wiki/", name, "_(Pok%C3%A9mon)"),
-    sprite_front_src = paste0("sprites/black-white/", ndex_num, ".png"),
-    sprite_back_src = paste0("sprites/black-white/back/", ndex_num, ".png"),
+    sprite_front_src = paste0("data/sprites/front/", ndex_num, ".png"),
+    sprite_back_src = paste0("data/sprites/back/", ndex_num, ".png"),
   )
 
 # Organise evolutionary chains --------------------------------------------
