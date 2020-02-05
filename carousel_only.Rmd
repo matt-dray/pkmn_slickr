@@ -1,8 +1,5 @@
 ---
 pagetitle: "Pokémon sprite carousel with {slickR}"
-title: "Pokémon sprite carousel"
-subtitle: "A {slickR} test"
-author: "Matt Dray, February 2020"
 output: html_document
 ---
 
@@ -15,7 +12,7 @@ source("R/create-pkmn-table.R")
 ```{r echo=FALSE}
 # Set variables
 my_height <- 200
-my_width <- "75%"
+my_width <- "100%"
 my_slides_show <- 3
 my_slides_scroll <- 3
 
@@ -74,21 +71,3 @@ htmltools::browsable(
   htmltools::tagList(my_sprite_dots, carousel)
 )
 ```
-
-# How to
-
-* Click the arrow buttons or use your arrow keys to advance
-* Click a sprite to go to that Pokémon's page on [Bulbapedia](https://bulbapedia.bulbagarden.net/wiki/Main_Page){target='_blank'}
-* Click a micro-sprite to jump to the evolutionary chain starting with that Pokémon
-
-# Data
-
-* © 1995–2020 [Nintendo](https://www.nintendo.com/){target='_blank'}/[Creatures Inc](https://www.creatures.co.jp/){target='_blank'}/[GAME FREAK inc](https://www.gamefreak.co.jp/){target='_blank'}
-* Pokémon, Pokémon character names are trademarks of Nintendo.
-* Generation I Pokémon sprites from the Pokémon Black and White games collected via [veekun.com](https://veekun.com/dex/downloads){target='_blank'}
-
-# Development
-
-* This is a test of the [{slickR}](https://metrumresearchgroup.github.io/slickR/){target='_blank'} package for R by [Jonathan Sidi](https://yonicd.netlify.com/){target='_blank'}
-* {slickR} provides an [htmlwidget](https://www.htmlwidgets.org/){target='_blank'} interface to the [slick JavaScript library](http://kenwheeler.github.io/slick/){target='_blank'} by [Ken Wheeler](http://kenwheeler.github.io/)
-* This demo made by Matt Dray ([blog](https://www.rostrum.blog/){target='_blank'}, [GitHub](https://github.com/matt-dray){target='_blank'}, [Twitter](https://twitter.com/home){target='_blank'})
