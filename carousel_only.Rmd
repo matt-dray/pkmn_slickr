@@ -39,7 +39,7 @@ back_carousel <- slickR(
   height = my_height, width = my_width
 ) +
   settings(
-    autoplay = TRUE, arrows = TRUE,
+    autoplay = TRUE, arrows = FALSE,
     slidesToShow = my_slides_show, 
     slidesToScroll = my_slides_scroll
   )
