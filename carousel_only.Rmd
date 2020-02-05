@@ -21,27 +21,28 @@ my_cp <- JS("function(slick,index) {
           return '<a><img src= ' + dotObj[index] + '  width=100% height=100%></a>';
           }")
 
-# Set common sprite settings
-my_sprite_settings <- settings(
-    autoplay = TRUE,
-    arrows = FALSE,
-    slidesToShow = my_slides_show, 
-    slidesToScroll = my_slides_scroll
-  )
-
 # Carousel with front-facing sprites
 front_carousel <- slickR(
   obj = pkmn2$sprite_front_src,
   objLinks = pkmn2$url,
   height = my_height, width = my_width
-) + my_sprite_settings
+) + settings(
+    autoplay = TRUE, arrows = FALSE,
+    slidesToShow = my_slides_show, 
+    slidesToScroll = my_slides_scroll
+  )
 
 # Carousel with back-facing sprites
 back_carousel <- slickR(
   obj = pkmn2$sprite_back_src,
   objLinks = pkmn2$url,
   height = my_height, width = my_width
-) + my_sprite_settings
+) +
+  settings(
+    autoplay = TRUE, arrows = TRUE,
+    slidesToShow = my_slides_show, 
+    slidesToScroll = my_slides_scroll
+  )
 
 # Carousel with National Dex numbers and names
 names_carousel <- slickR(
@@ -49,7 +50,7 @@ names_carousel <- slickR(
   slideType = 'p'
 ) + 
   settings(
-    autoplay = TRUE, arrows = TRUE,
+    autoplay = TRUE, arrows = FALSE,
     slidesToShow = my_slides_show, 
     slidesToScroll = my_slides_scroll,
     dots = TRUE, customPaging = my_cp
