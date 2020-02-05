@@ -12,7 +12,7 @@ source("R/create-pkmn-table.R")
 ```{r echo=FALSE}
 # Set variables
 my_height <- 200
-my_width <- "100%"
+my_width <- "80%"
 my_slides_show <- 3
 my_slides_scroll <- 3
 
