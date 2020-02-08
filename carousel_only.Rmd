@@ -3,13 +3,11 @@ pagetitle: "Pokémon sprite carousel with {slickR}"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
+```{r echo=FALSE, message=FALSE}
 library(htmlwidgets)
 library(slickR)
 source("R/create-pkmn-table.R")
-```
 
-```{r echo=FALSE}
 # Set variables
 my_height <- 200
 my_width <- "80%"
@@ -21,28 +19,27 @@ my_cp <- JS("function(slick,index) {
           return '<a><img src= ' + dotObj[index] + '  width=100% height=100%></a>';
           }")
 
+# Set common settings
+my_settings <- settings(
+    autoplay = TRUE, arrows = FALSE,
+    slidesToShow = my_slides_show, 
+    slidesToScroll = my_slides_scroll
+  )
+
 # Carousel with front-facing sprites
 front_carousel <- slickR(
   obj = pkmn2$sprite_front_src,
   objLinks = pkmn2$url,
   height = my_height, width = my_width
-) + settings(
-    autoplay = TRUE, arrows = FALSE,
-    slidesToShow = my_slides_show, 
-    slidesToScroll = my_slides_scroll
-  )
+) + my_settings
 
 # Carousel with back-facing sprites
 back_carousel <- slickR(
   obj = pkmn2$sprite_back_src,
   objLinks = pkmn2$url,
   height = my_height, width = my_width
-) +
-  settings(
-    autoplay = TRUE, arrows = FALSE,
-    slidesToShow = my_slides_show, 
-    slidesToScroll = my_slides_scroll
-  )
+) + my_settings
+  
 
 # Carousel with National Dex numbers and names
 names_carousel <- slickR(
